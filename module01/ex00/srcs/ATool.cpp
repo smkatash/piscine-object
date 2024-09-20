@@ -3,7 +3,7 @@
 
 void	ATool::give_to_worker(Worker* worker) {
 	if (this->worker != nullptr) {
-        this->worker->remove_tool(*this);
+        this->worker->remove_tool(this);
     }
 	this->worker = worker;
 }

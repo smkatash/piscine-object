@@ -11,8 +11,8 @@ class   Worker;
 
 class BaseWorkshop {
 	public:
-		virtual void    register_worker(Worker &worker) = 0;
-        virtual void    release_worker(Worker &worker) = 0;
+		virtual void    register_worker(Worker *worker) = 0;
+        virtual void    release_worker(Worker *worker) = 0;
 		virtual 		~BaseWorkshop() {};
 };
 
@@ -21,10 +21,10 @@ class Workshop: public BaseWorkshop {
     private:
         std::string title;
         std::list<Worker*> workers;
-        bool worker_registered(Worker &worker) {
+        bool worker_registered(Worker *worker) {
             std::list<Worker*>::iterator it;
             for (it = this->workers.begin(); it != this->workers.end(); ++it){
-                if ((*it) == &worker) {
+                if ((*it) == worker) {
                     return (true);
                 }
             }
@@ -34,27 +34,35 @@ class Workshop: public BaseWorkshop {
     public:
         Workshop(std::string title): title(title) {}
         ~Workshop() {}
-        const std::string*    get_title() { return &this->title; }
+        const std::string&    get_title() const { return this->title; }
 
-        void    register_worker(Worker &worker) {
+        void    list_workers() {
+            std::cout << "Course: " << this->get_title() << std::endl;
+            std::list<Worker*>::iterator it;
+            for (it = this->workers.begin(); it != this->workers.end(); ++it){
+                std::cout << "Name: " << (*it)->get_name() << std::endl;
+            }
+        }
+
+        void    register_worker(Worker *worker) {
             if (!this->worker_registered(worker)) {
-                T* tool = worker.get_tool<T>();
+                T* tool = worker->get_tool<T>();
                 if (tool) {
-                    worker.register_to_workshop(*this);
-                    this->workers.push_back(&worker);
-                    std::cout << this->title << " registered " << *worker.get_name() << std::endl;
+                    worker->register_to_workshop(this);
+                    this->workers.push_back(worker);
+                    std::cout << this->title << " registered " << worker->get_name() << std::endl;
             } else {
-                std::cerr << *worker.get_name() << " does not have a proper tool!\n";
+                std::cerr << worker->get_name() << " does not have a proper tool!\n";
                 }
             }
         }
 
-        void    release_worker(Worker &worker) {
+        void    release_worker(Worker *worker) {
             std::list<Worker*>::iterator it;
             for (it = this->workers.begin(); it != this->workers.end(); ++it){
-                if ((*it) == &worker) {
-                    (*it)->leave_workshop(*this);
-                    std::cout << this->title << " released " << *worker.get_name() << std::endl;
+                if ((*it) == worker) {
+                    (*it)->leave_workshop(this);
+                    std::cout << this->title << " released " << worker->get_name() << std::endl;
                     this->workers.erase(it);
                     break;
                 }
@@ -69,7 +77,7 @@ class Workshop: public BaseWorkshop {
                     if (tool) {
                         (*it)->work(tool);
                     } else {
-                        std::cerr << *(*it)->get_name() << " has lost the tool!\n";
+                        std::cerr << (*it)->get_name() << " has lost the tool!\n";
                     }
 
                 }

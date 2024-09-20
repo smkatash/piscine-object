@@ -11,6 +11,9 @@ struct Statistic
         this->level = level;
         this->exp = level * 0.02;
     };
+    ~Statistic() {
+        std::cout << "Statistic is destroyed.\n";
+    }
 };
 
 #endif
