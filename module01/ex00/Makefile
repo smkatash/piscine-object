@@ -6,19 +6,20 @@
 #    By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/14 13:37:45 by kanykei           #+#    #+#              #
-#    Updated: 2024/09/20 00:00:52 by kanykei          ###   ########.fr        #
+#    Updated: 2024/09/29 15:57:21 by kanykei          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 VPATH	=	srcs
 
 CC		=	c++
-CFLAGS	=	-std=c++98 -pedantic -Wall -Wextra -Werror -MD 
+CFLAGS	=	-std=c++98 -pedantic -Wall -Wextra -Werror -MMD 
 
 NAME	=	ex00
 SRC		=	main.cpp Hammer.cpp Shovel.cpp ATool.cpp Worker.cpp
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.cpp=.o)))
 INC		=	-I include
+DEP		=	$(OBJ:.o=.d)
 
 all : $(NAME)
 
@@ -39,6 +40,8 @@ fclean : clean
 	@rm -f $(NAME)
 
 re : clean all
+
+-include $(DEP)
 
 .PHONY : all clean fclean re
 

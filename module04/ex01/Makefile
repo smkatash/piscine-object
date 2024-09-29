@@ -6,20 +6,19 @@
 #    By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/14 13:37:45 by kanykei           #+#    #+#              #
-#    Updated: 2024/09/29 15:57:11 by kanykei          ###   ########.fr        #
+#    Updated: 2024/09/29 15:56:59 by kanykei          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 VPATH	=	srcs
-
 CC		=	c++
-CFLAGS	=	-std=c++98 -Wall -Wextra -Werror -MMD
+CFLAGS	=	-std=c++98 -pedantic -MMD  #-Wall -Wextra -Werror
 
 NAME	=	ex01
-SRC		=	main.cpp Graph.cpp
+SRC		=	main.cpp Course.cpp Form.cpp Person.cpp Room.cpp Staff.cpp Student.cpp
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.cpp=.o)))
-INC		=	-I include
 DEP		=	$(OBJ:.o=.d)
+INC		=	-I include
 
 all : $(NAME)
 
