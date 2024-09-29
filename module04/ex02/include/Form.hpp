@@ -5,19 +5,22 @@
 
 class Form {
 private:
-	FormType _formType;
+	FormTypes::Type _formType;
+	bool			_is_signed;
 
 public:
-	Form(FormType p_formType);
-	virtual ~Form() {};
+	Form(FormTypes::Type p_formType);
+	void	sign();
+	bool 	is_signed() const;
 	virtual void execute() = 0;
+	virtual ~Form() {}
 };
 
 class CourseFinishedForm : public Form {
 private:
 
 public:
-	CourseFinishedForm() : Form(FormType::CourseFinished) {}
+	CourseFinishedForm();
 	void execute();
 };
 
@@ -25,7 +28,7 @@ class NeedMoreClassRoomForm : public Form {
 private:
 
 public:
-	NeedMoreClassRoomForm() : Form(FormType::NeedMoreClassRoom) {}
+	NeedMoreClassRoomForm();
 	void execute();
 };
 
@@ -33,7 +36,7 @@ class NeedCourseCreationForm : public Form {
 private:
 
 public:
-	NeedCourseCreationForm() : Form(FormType::NeedCourseCreation) {}
+	NeedCourseCreationForm();
 	void execute();
 };
 
@@ -41,7 +44,7 @@ class SubscriptionToCourseForm : public Form {
 private:
 
 public:
-	SubscriptionToCourseForm() : Form(FormType::SubscriptionToCourse) {}
+	SubscriptionToCourseForm();
 	void execute();
 };
 
