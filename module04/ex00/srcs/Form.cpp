@@ -3,17 +3,17 @@
 Form::Form(FormType p_formType): _formType(p_formType) {};
 
 void CourseFinishedForm::execute() {
-    std::cout << "CourseFinishedForm executed" << std::endl;
+    std::cout << "CourseFinishedForm executed.\n";
 }
 
 void NeedMoreClassRoomForm::execute() {
-    std::cout << "NeedMoreClassRoomForm executed" << std::endl;
+    std::cout << "NeedMoreClassRoomForm executed.\n";
 }
 
 void NeedCourseCreationForm::execute() {
-    std::cout << "NeedCourseCreationForm executed" << std::endl;
+    std::cout << "NeedCourseCreationForm executed.\n";
 }
 
 void SubscriptionToCourseForm::execute() {
-    std::cout << "SubscriptionToCourseForm executed" << std::endl;
+    std::cout << "SubscriptionToCourseForm executed.\n";
 }

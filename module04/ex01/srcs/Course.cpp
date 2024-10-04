@@ -15,7 +15,6 @@ void Course::assign(Professor* p_professor) {
 void Course::subscribe(Student* p_student) {
     if (this->_students.size() < this->_maximumNumberOfStudent) {
         this->_students.push_back(p_student);
-        this->_numberOfClassToGraduate++;
     } else {
         std::cerr << "Course is full, subscription is not possible.\n"; 
     }

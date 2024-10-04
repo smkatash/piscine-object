@@ -1,19 +1,21 @@
 #include "Form.hpp"
 
-Form::Form(FormTypes::Type p_formType): _formType(p_formType), _is_signed(false) {}
+Form::Form(FormTypes::Type p_formType): _formType(p_formType), _isSigned(false) {}
 
 void    Form::sign() {
-    this->_is_signed = true;
+    if (!this->_filledData.empty()) {
+        this->_isSigned = true;
+    }
 }
 
-bool    Form::is_signed() const {
-    return (this->_is_signed);
+bool    Form::isSigned() const {
+    return (this->_isSigned);
 }
 
 CourseFinishedForm::CourseFinishedForm() : Form(FormTypes::CourseFinished) {}
 
 void CourseFinishedForm::execute() {
-    if (this->is_signed()) {
+    if (this->isSigned()) {
         std::cout << "CourseFinishedForm executed.\n";
     } else {
         std::cout << "Form not signed. Cannot execute.\n";
@@ -23,7 +25,7 @@ void CourseFinishedForm::execute() {
 NeedMoreClassRoomForm::NeedMoreClassRoomForm() : Form(FormTypes::NeedMoreClassRoom) {}
 
 void NeedMoreClassRoomForm::execute() {
-    if (this->is_signed()) {
+    if (this->isSigned()) {
         std::cout << "NeedMoreClassRoomForm executed.\n" << std::endl;
     } else {
         std::cout << "Form not signed. Cannot execute.\n";
@@ -33,7 +35,7 @@ void NeedMoreClassRoomForm::execute() {
 NeedCourseCreationForm::NeedCourseCreationForm() : Form(FormTypes::NeedCourseCreation) {}
 
 void NeedCourseCreationForm::execute() {
-    if (this->is_signed()) {
+    if (this->isSigned()) {
         std::cout << "NeedCourseCreationForm executed\n";
     } else {
         std::cout << "Form not signed. Cannot execute.\n";
@@ -44,7 +46,7 @@ SubscriptionToCourseForm::SubscriptionToCourseForm() : Form(FormTypes::Subscript
 
 
 void SubscriptionToCourseForm::execute() {
-    if (this->is_signed()) {
+    if (this->isSigned()) {
         std::cout << "SubscriptionToCourseForm executed.\n";
     } else {
         std::cout << "Form not signed. Cannot execute.\n";

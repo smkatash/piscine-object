@@ -1,18 +1,35 @@
-#ifndef FORM_HPP
-#define FORM_HPP
+#pragma once
+
 #include "FormType.hpp"
+#include "Course.hpp"
 #include <iostream>
 
+class Student;
+class Course;
+class Professor;
+
 class Form {
-private:
+protected:
 	FormTypes::Type _formType;
+	std::string		_filledData;
+	Student*		_student;
+	Course*			_course;	
+	Classroom*		_room;	
+	Professor*		_professor;	
 	bool			_isSigned;
 
 public:
 	Form(FormTypes::Type p_formType);
 	void	sign();
 	bool 	isSigned() const;
+	void	setStudent(Student* student);
+	void	setCourse(Course *course);
+	void	setProfessor(Professor* professor);
+	void	setRoom(Classroom* room);
 	virtual void execute() = 0;
+	virtual void fill(const std::string& data) {
+        _filledData = data;
+    }
 	virtual ~Form() {}
 };
 
@@ -21,6 +38,7 @@ private:
 
 public:
 	CourseFinishedForm();
+	void fill(const std::string& data);
 	void execute();
 };
 
@@ -29,6 +47,7 @@ private:
 
 public:
 	NeedMoreClassRoomForm();
+	void fill(const std::string& data);
 	void execute();
 };
 
@@ -37,6 +56,7 @@ private:
 
 public:
 	NeedCourseCreationForm();
+	void fill(const std::string& data);
 	void execute();
 };
 
@@ -45,7 +65,7 @@ private:
 
 public:
 	SubscriptionToCourseForm();
+	void fill(const std::string& data);
 	void execute();
 };
 
-#endif
