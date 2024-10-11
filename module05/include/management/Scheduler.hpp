@@ -30,7 +30,7 @@ class Scheduler {
         FileLogger                  _logger;
         bool    isEventOccurred(float probability);
     public:
-        ~Scheduler() {};
+        ~Scheduler();
         static Scheduler *getInstance();
         void    addTrain(Train* train);
         void    addRail(Rail* rail);

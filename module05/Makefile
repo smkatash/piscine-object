@@ -6,13 +6,13 @@
 #    By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/14 13:37:45 by kanykei           #+#    #+#              #
-#    Updated: 2024/10/11 16:53:07 by kanykei          ###   ########.fr        #
+#    Updated: 2024/10/11 23:44:57 by kanykei          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 VPATH	=	srcs
 CC		=	c++
-CFLAGS	=	-std=c++98 -MMD  #-Wall -Wextra -Werror
+CFLAGS	=	-std=c++98 -MMD -fsanitize=address  #-Wall -Wextra -Werror
 
 NAME	=	railnetwork
 SRC		=	main.cpp Parser.cpp City.cpp Event.cpp Rail.cpp \

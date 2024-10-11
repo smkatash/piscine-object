@@ -2,6 +2,29 @@
 
 Scheduler* Scheduler::_instance = nullptr;
 
+Scheduler::~Scheduler() {
+    std::vector<Rail*>::iterator nit = _network.begin();
+    for (; nit != _network.end(); ++nit) {
+        delete *nit;
+    }
+    std::vector<Node*>::iterator it = _nodes.begin();
+    for (; it != _nodes.end(); ++it) {
+        delete *it;
+    }
+    std::vector<Event*>::iterator ite = _events.begin();
+    for (; ite != _events.end(); ++ite) {
+        delete *ite;
+    }
+    std::vector<Train*>::iterator itt = _trains.begin();
+    for (; itt != _trains.end(); ++itt) {
+        delete *itt;
+    }
+    std::vector<TrainComposition*>::iterator cit = _trainCompositions.begin();
+    for (; cit != _trainCompositions.end(); ++cit) {
+        delete *cit;
+    }
+}
+
 Scheduler*  Scheduler::getInstance() {
     if (_instance == nullptr) {
 		_instance = new Scheduler();
