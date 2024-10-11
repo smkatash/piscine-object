@@ -4,19 +4,20 @@
 #include <string>
 #include <sstream>
 #include <map>
-#include "Node.hpp"
-#include "Rail.hpp"
 #include "Scheduler.hpp"
+#include "TrainComposition.hpp"
 
 #define NODE "Node"
 #define EVENT "Event"
 #define RAIL "Rail"
+#define DEFAULT_SPEED 120.f
 
-enum class ParserType {
+enum ParserType {
 	NetworkData,
-    TrainComposition
+    TrainData
 };
 
+class TrainComposition;
 
 class Parser {
     public:
@@ -27,6 +28,8 @@ class Parser {
 
 class NetworkParser: public Parser {
     private:
+        bool    isNumber(const std::string& s);
+        bool    isSubstringAtEndOfLine(const std::string& line, const std::string& substring);
         float	parseDuration(const std::string& token);
     public:
         void parseData(const std::string& filepath);

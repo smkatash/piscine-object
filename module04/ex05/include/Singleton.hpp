@@ -9,15 +9,18 @@ class SingletonObject {
         virtual ~SingletonObject() {}
         static SingletonObject *_instance;
         static std::vector<T> _list;
+        friend class SingletonDestroyer;
     private:
         SingletonObject(const SingletonObject&) {};
         SingletonObject& operator=(const SingletonObject&) {};
+        static SingletonDestroyer _destroyer;
     public:
 
         static SingletonObject *get_instance()
 	    {
 		    if (_instance == nullptr)
 			    _instance = new SingletonObject();
+                _destroyer.setSingleton(_instance);
 		    return _instance;
 	    }
 
@@ -51,4 +54,26 @@ template <typename T>
 SingletonObject<T>* SingletonObject<T>::_instance = nullptr;
 
 template <typename T>
+SingletonDestroyer<T> SingletonObject<T>::_destroyer;
+
+template <typename T>
 std::vector<T> SingletonObject<T>::_list;
+
+template <typename T>
+class SingletonDestroyer {
+ public:
+    SingletonDestroyer(SingletonObject<T> *s) {
+        _singleton = s;
+    }
+
+    ~SingletonDestroyer() {
+        delete _singleton;
+    }
+
+   void setSingleton(SingletonObject<T> *s) {
+        _singleton = s;
+    }
+
+ private:
+   SingletonObject<T>* _singleton;
+};

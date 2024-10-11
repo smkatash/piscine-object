@@ -21,7 +21,14 @@ void    NetworkParser::parseData(const std::string& filepath) {
 		} else if (token == EVENT) {
 			std::string name;
 			float	probability, duration;
-			iss >> name >> token;
+			iss >> name;
+			while (true && !isSubstringAtEndOfLine(line, token)) {
+				iss >> token;
+				if (isNumber(token)) {
+					break;
+				}
+				name.append(token);
+			}
 			probability = std::stof(token);
 			if (probability <= 0.f) {
 				std::cerr << "Event can not happen. Skipping line.\n";
@@ -50,13 +57,39 @@ void    NetworkParser::parseData(const std::string& filepath) {
 			}
 			Node* a = Scheduler::getInstance()->getNode(departFrom);
 			Node* b = Scheduler::getInstance()->getNode(arriveAt);
-			if (a && b && length) {
-				Scheduler::getInstance()->addRail(new Rail(a, b, length));
+			iss >> token;
+			float	speed = std::stof(token);
+			if (a && b && length && speed) {
+				Scheduler::getInstance()->addRail(new Rail(a, b, length, speed));
+			} else if (a && b && length) {
+				Scheduler::getInstance()->addRail(new Rail(a, b, length, DEFAULT_SPEED));
 			}
 		} else {
 			throw std::runtime_error("Parser: Unknown token");
 		}
 	}
+}
+
+bool NetworkParser::isSubstringAtEndOfLine(const std::string& line, const std::string& substring) {
+    size_t substringLength = substring.length();
+    if (line.length() < substringLength) {
+        return false;
+    }
+    
+    std::string ending = line.substr(line.length() - substringLength);
+    return (ending == substring);
+}
+
+
+bool NetworkParser::isNumber(const std::string& s) {
+    std::string::const_iterator it = s.begin();
+    while (it != s.end()) {
+		if (!std::isdigit(*it) && *it != '.') {
+			break;
+		}
+		++it;
+	}
+    return !s.empty() && it == s.end();
 }
 
 float	NetworkParser::parseDuration(const std::string& token) {

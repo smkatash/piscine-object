@@ -8,3 +8,13 @@ Event::~Event() {}
 Node* Event::getLocation() {
     return this->_location;
 }
+
+std::string Event::getEventName() {
+    return this->_eventName;
+}
+float Event::getProbability() {
+    return this->_probability;
+}
+float Event::getDuration() {
+    return this->_duration;
+}

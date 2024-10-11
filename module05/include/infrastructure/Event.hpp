@@ -3,7 +3,7 @@
 #include "Node.hpp"
 #include <iostream>
 
-enum class EventType {
+enum EventType {
 	PassengersDiscomfort,
     Riot
 };
@@ -18,4 +18,8 @@ class Event {
         Event(std::string p_name, float p_probability, float p_duration, Node* node);
         ~Event();
         Node* getLocation();
+        std::string getEventName();
+        float getProbability();
+        float getDuration();
+
 };

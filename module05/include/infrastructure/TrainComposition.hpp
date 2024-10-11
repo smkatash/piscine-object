@@ -1,6 +1,8 @@
 #pragma once
 #include "Train.hpp"
 
+class Train;
+
 class TrainComposition {
     private:
         Train*      _train;

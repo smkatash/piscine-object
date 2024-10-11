@@ -1,4 +1,3 @@
-#pragma once
 #include "TrainComposition.hpp"
 
 TrainComposition::TrainComposition(Train* train, Node* depart, Node* arrive, float departAt): 

@@ -6,19 +6,21 @@
 #    By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/14 13:37:45 by kanykei           #+#    #+#              #
-#    Updated: 2024/10/06 14:42:55 by kanykei          ###   ########.fr        #
+#    Updated: 2024/10/11 16:53:07 by kanykei          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 VPATH	=	srcs
 CC		=	c++
-CFLAGS	=	-std=c++98 -pedantic -MMD  #-Wall -Wextra -Werror
+CFLAGS	=	-std=c++98 -MMD  #-Wall -Wextra -Werror
 
 NAME	=	railnetwork
-SRC		=	main.cpp Course.cpp Form.cpp Person.cpp Room.cpp Staff.cpp Student.cpp
+SRC		=	main.cpp Parser.cpp City.cpp Event.cpp Rail.cpp \
+			Scheduler.cpp Train.cpp TrainComposition.cpp \
+			PathFinder.cpp Speed.cpp TrainDispatcher.cpp
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.cpp=.o)))
 DEP		=	$(OBJ:.o=.d)
-INC		=	-I include/infrastructure include/management
+INC		=	-I include/infrastructure -I include/management -I include/logger
 
 all : $(NAME)
 
@@ -34,6 +36,7 @@ obj :
 
 clean :
 	@rm -rf obj
+	@rm *.log
 
 fclean : clean
 	@rm -f $(NAME)
