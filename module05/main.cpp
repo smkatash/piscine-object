@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdexcept>
 
+// TODO check for train block
 int main() {
     TrainDispatcher dispatcher;
     try {
